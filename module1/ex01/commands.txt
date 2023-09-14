@@ -1,0 +1,10 @@
+alias - creates a nickname for long command so it's easier to use(type)
+history - displays all recent commands
+whatis - displays command's description
+chmod - helps change access rights for document
+tar - creates or 'unzips' .tar archives
+grep - searches for text files containing certain strings(smth like regex)
+locate - searches for files and folders wich names fit query and shows their paths
+df - shows disk volume and free space
+whereis - shows path for file
+reboot - reboots pc
