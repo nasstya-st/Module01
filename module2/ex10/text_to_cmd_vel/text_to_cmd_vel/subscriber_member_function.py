@@ -21,7 +21,7 @@ class Subscriber(Node):
         elif cmd == 'move_forward': twist.linear.x = 1.0  
         elif cmd == 'move_backward': twist.linear.x = -1.0  
         
-        self.publisher.publish(twist)
+        self.cmd_vel_publisher.publish(twist)
 
 
 def main(args=None):
