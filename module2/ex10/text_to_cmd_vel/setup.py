@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        'listener = py_pubsub.subscriber_member_function:main',
+	'listener = text_to_cmd_vel.subscriber_member_function:main',
         ],
     },
 )
