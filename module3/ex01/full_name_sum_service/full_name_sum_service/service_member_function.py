@@ -12,8 +12,8 @@ class MinimalService(Node):
         self.srv = self.create_service(FullNameSumService, 'summ_full_name', self.summ_full_name_callback)
 
     def summ_full_name_callback(self, request, response):
-        response.full_name = ' '.join([request.a, request.b, request.c])
-        self.get_logger().info(f'Incoming request\nlast name: {request.a} name: {request.b} first name: {request.c}' )
+        response.full_name = ' '.join([request.last_name, request.name, request.first_name])
+        self.get_logger().info(f'Incoming request\nlast name: {request.last_name} name: {request.name} first name: {request.first_name}' )
 
         return response
 

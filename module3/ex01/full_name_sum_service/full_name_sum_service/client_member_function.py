@@ -16,9 +16,9 @@ class MinimalClientAsync(Node):
         self.req = FullNameSumService.Request()
 
     def send_request(self, a, b, c):
-        self.req.a = a
-        self.req.b = b
-        self.req.c = c
+        self.req.last_name = a
+        self.req.name = b
+        self.req.first_name = c
         self.future = self.cli.call_async(self.req)
         rclpy.spin_until_future_complete(self, self.future)
         return self.future.result()
