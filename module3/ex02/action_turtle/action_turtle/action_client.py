@@ -19,7 +19,8 @@ class CommandsActionClient(Node):
 
         self._action_client.wait_for_server()
         
-        self._send_goal_future = self._action_client.send_goal_async(goal_msg, feedback_callback=self.feedback_callback)
+        #return self._action_client.send_goal_async(goal_msg,feedback_callback=self.feedback_callback) 
+        self._send_goal_future = self._action_client.send_goal_async(goal_msg,feedback_callback=self.feedback_callback)
 
         self._send_goal_future.add_done_callback(self.goal_response_callback)
 
@@ -53,11 +54,15 @@ def main(args=None):
     
     action_client.send_goal('forward', 2, 0)
     #rclpy.spin(action_client)
+    #action_client.shutdown()
+    
     action_client.send_goal('turn_right', 0, 90)
-    #rclpy.spin(action_client)
+    #rclpy.spin(action_client, future)
+    #action_client.shutdown()
+    
     action_client.send_goal('forward', 1, 0)
     rclpy.spin(action_client)
-
+    #action_client.shutdown()
 
 
 if __name__ == '__main__':
