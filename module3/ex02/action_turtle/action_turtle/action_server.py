@@ -36,7 +36,7 @@ class CommandsActionServer(Node):
         
         global curr_pose
 
-        x0, y0 = curr_pose.x, curr_pose.y
+        x0, y0, t0 = curr_pose.x, curr_pose.y, curr_pose.theta
 
         
         twist = Twist()
@@ -59,16 +59,21 @@ class CommandsActionServer(Node):
         	#goal_handle.publish_feedback(feedback_msg)
 
         else:
-        	if goal_handle.request.command == 'turn_left':
-        		twist.angular.z = float(goal_handle.request.angle)*2*3.14/360
-        	else: twist.angular.z = -1.0 * float(goal_handle.request.angle)*2*3.14/360
-        	self.publisher.publish(twist)
+            if goal_handle.request.command == 'turn_right':
+                twist.angular.z = -1.0*float(goal_handle.request.angle)*3.14/360  # deg -> rad
+                self.publisher.publish(twist)
+                while (abs((curr_pose.theta-t0)) < float(goal_handle.request.angle)*3.14/360):
+                    self.get_logger().info(f'I rotated: {(curr_pose.theta-t0)*360/3.14} degrees')
+            else: 
+                twist.angular.z = float(goal_handle.request.angle)*3.14/360
+                self.publisher.publish(twist)
         	#time.sleep(1)
         		
         goal_handle.succeed()
         twist.linear.x = 0.0
         self.publisher.publish(twist)
-        self.get_logger().info(f'Current position: {curr_pose.x} {curr_pose.y} m')
+        if goal_handle.request.command == 'forward':
+            self.get_logger().info(f'Current position: {curr_pose.x} {curr_pose.y} m')
         		
         
         result = MessageTurtleCommands.Result()
