@@ -22,14 +22,6 @@ class CommandsActionServer(Node):
             'execute_turtle_commands',
             self.execute_callback)
         self.publisher = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
-        #self.subscription = self.create_subscription(
-        #    Pose,
-        #    '/turtle1/pose',
-        #    self.listener_callback,
-        #    10)
-        #self.subscription
-
-
 
     def execute_callback(self, goal_handle):
         self.get_logger().info('Executing goal...')
@@ -45,36 +37,32 @@ class CommandsActionServer(Node):
         feedback_msg.odom = 0
         
         if goal_handle.request.command == 'forward':
-        	#twist.linear.x = 1.0
         	twist.linear.x = float(goal_handle.request.s)
         	self.publisher.publish(twist)
         	while feedback_msg.odom != goal_handle.request.s:
-        		#self.get_logger().info(f'I heard: "{self.message}"')
-        	#	self.publisher.publish(twist)
         		feedback_msg.odom = int(math.sqrt((curr_pose.x - x0)**2+(curr_pose.y - y0)**2))
         		self.get_logger().info(f'I went: {curr_pose.x} {x0} m')
         		goal_handle.publish_feedback(feedback_msg)
-        	#	time.sleep(1)
-        	#self.publisher.publish(twist)
-        	#goal_handle.publish_feedback(feedback_msg)
 
         else:
             if goal_handle.request.command == 'turn_right':
-                twist.angular.z = -1.0*float(goal_handle.request.angle)*3.14/360  # deg -> rad
+                twist.angular.z = -1.0*float(goal_handle.request.angle)*2*3.14/360  # deg -> rad
                 self.publisher.publish(twist)
-                while (abs((curr_pose.theta-t0)) < float(goal_handle.request.angle)*3.14/360):
-                    self.get_logger().info(f'I rotated: {(curr_pose.theta-t0)*360/3.14} degrees')
+                while (abs((curr_pose.theta-t0)) < float(goal_handle.request.angle)*2*3.14/360):
+                    self.get_logger().info(f'I rotated: {(curr_pose.theta-t0)*360/6.28} degrees')
             else: 
-                twist.angular.z = float(goal_handle.request.angle)*3.14/360
+                twist.angular.z = float(goal_handle.request.angle)*2*3.14/360
                 self.publisher.publish(twist)
-        	#time.sleep(1)
-        		
+                while (abs((curr_pose.theta-t0)) < float(goal_handle.request.angle)*2*3.14/360):
+                    self.get_logger().info(f'I rotated: {abs(curr_pose.theta-t0)*360/6.28} degrees')
+
         goal_handle.succeed()
         twist.linear.x = 0.0
         self.publisher.publish(twist)
         if goal_handle.request.command == 'forward':
             self.get_logger().info(f'Current position: {curr_pose.x} {curr_pose.y} m')
-        		
+        else:
+            self.get_logger().info(f'Current angle: {curr_pose.theta*360/6.28} degrees')
         
         result = MessageTurtleCommands.Result()
         result.result = True
@@ -91,7 +79,7 @@ class CommandsActionSubscriber(Node):
      
       # Create a subscriber 
       # This node subscribes to messages of type
-      # sensor_msgs/BatteryState
+      # Pose
       self.subscription = self.create_subscription(
             Pose,
             '/turtle1/pose',
@@ -112,8 +100,6 @@ def main(args=None):
     executor = MultiThreadedExecutor(num_threads=4)
     executor.add_node(action_server)
     executor.add_node(action_subscriber)
-
-
 
     executor.spin()
     
