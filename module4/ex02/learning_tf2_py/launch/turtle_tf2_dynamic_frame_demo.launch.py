@@ -23,6 +23,6 @@ def generate_launch_description():
             package='learning_tf2_py',
             executable='dynamic_frame_tf2_broadcaster',
             name='dynamic_broadcaster',
-            arguments=['--radius', '2', '--direction_of_rotation', '1']
+            arguments=['--radius', '5', '--direction_of_rotation', '1']
         ),
     ])

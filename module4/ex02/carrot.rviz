@@ -7,6 +7,9 @@ Panels:
         - /Global Options1
         - /TF1
         - /TF1/Frames1
+        - /TF1/Frames1/carrot11
+        - /TF1/Tree1/world1
+        - /TF1/Tree1/world1/turtle11
       Splitter Ratio: 0.5
     Tree Height: 553
   - Class: rviz_common/Selection
@@ -73,7 +76,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: turtle1
+    Fixed Frame: world
     Frame Rate: 30
   Name: root
   Tools:
@@ -160,5 +163,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1306
-  X: 395
-  Y: 101
+  X: 70
+  Y: 27
