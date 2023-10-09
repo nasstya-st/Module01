@@ -1,5 +1,5 @@
 cd ros2_ws/src
-colcon build --packages-select learning_tf2_py
+colcon build --packages-select carrot
 . install/setup.bash
-ros2 launch learning_tf2_py turtle_tf2_dynamic_frame_demo.launch.py
+ros2 launch carrot turtles_carrot.launch.py
 
