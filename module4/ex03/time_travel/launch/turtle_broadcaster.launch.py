@@ -6,6 +6,7 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
+
     return LaunchDescription([
         Node(
             package='turtlesim',
@@ -24,6 +25,10 @@ def generate_launch_description():
             'target_frame', default_value='turtle1',
             description='Target frame name.'
         ),
+        DeclareLaunchArgument(
+            'delay', default_value='5.0',
+            description='Delay value for turtle2.'
+        ),
         Node(
             package='time_travel',
             executable='turtle_tf2_broadcaster',
@@ -37,7 +42,8 @@ def generate_launch_description():
             executable='turtle_tf2_listener',
             name='listener',
             parameters=[
-                {'target_frame': LaunchConfiguration('target_frame')}
+                {'target_frame': LaunchConfiguration('target_frame'),
+                 'delay' : '5.0'}
             ]
         ),
     ])
