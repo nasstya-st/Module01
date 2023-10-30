@@ -46,7 +46,7 @@ def generate_launch_description():
     create = Node(
         package='ros_gz_sim',
         executable='create',
-        arguments=['-name', 'robot', '-x 0.0', '-y 0.0', '-z 2.0',
+        arguments=['-name', 'robot', '-x 0.0', '-y 0.0', '-z 0.18',
                    '-topic', 'robot_description'],
         output='screen'          
     )
@@ -60,7 +60,7 @@ def generate_launch_description():
         parameters=[
             {'use_sim_time': True},
             {'robot_description': Command(['xacro ', urdf_file])},
-            {'frame_prefix' : '/fox'},
+            {'frame_prefix' : 'fox/'},
         ]
     )
 
@@ -68,13 +68,13 @@ def generate_launch_description():
     rviz = Node(
        package='rviz2',
        executable='rviz2',
-       #arguments=['-d', os.path.join(pkg_share, 'config', 'diff_drive.rviz')],
+       arguments=['-d', os.path.join(pkg_share, 'config', 'diff_drive.rviz')],
        condition=IfCondition(LaunchConfiguration('rviz'))
     )
 
     # Bridge ROS topics and Gazebo messages for establishing communication
-    gz_topic = '/model/fox'
-    link_pose_gz_topic = gz_topic + '/pose'
+    #gz_topic = '/model/fox'
+    #link_pose_gz_topic = gz_topic + '/pose'
     # Bridge
     bridge = Node(
         package='ros_gz_bridge',

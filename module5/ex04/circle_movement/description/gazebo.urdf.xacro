@@ -27,9 +27,9 @@
         <plugin
             filename="gz-sim-diff-drive-system"
             name="gz::sim::systems::DiffDrive">
-            <left_joint>drivewhl_l_joint</left_joint>
-            <right_joint>drivewhl_r_joint</right_joint>
-            <child_frame_id>robot/base_link</child_frame_id>
+            <left_joint>left_wheel_joint</left_joint>
+            <right_joint>right_wheel_joint</right_joint>
+            <child_frame_id>fox/base_link</child_frame_id>
             <wheel_separation>0.35</wheel_separation>
             <wheel_radius>0.1</wheel_radius>
             <odom_publish_frequency>10</odom_publish_frequency>

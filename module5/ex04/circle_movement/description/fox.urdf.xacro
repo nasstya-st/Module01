@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="sam_bot" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="foxy" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:include filename="gazebo.urdf.xacro" />
 
@@ -21,7 +21,7 @@
   <xacro:property name="eye_height" value="0.08"/>
   
   <xacro:property name="eye_reflect_width" value="0.04"/>
-  <xacro:property name="eye_reflect_length" value="0.005"/>
+  <xacro:property name="eye_reflect_length" value="0.0025"/>
   <xacro:property name="eye_reflect_height" value="0.04"/>
   
   <xacro:property name="cheek_width" value="0.15"/>
@@ -38,14 +38,14 @@
 
   <xacro:property name="wheel_radius" value="0.10"/>
   <xacro:property name="wheel_width" value="0.04"/>
-  <xacro:property name="wheel_ygap" value="0.025"/>
+  <xacro:property name="wheel_ygap" value="0.02"/>
   <xacro:property name="wheel_zoff" value="0.08"/>
   <xacro:property name="wheel_xoff" value="0.12"/>
 
   <xacro:property name="caster_xoff" value="0.11"/>
   
   <material name="Orange">
-    <color rgba="1. 0.404 0.0 1.0"/>
+    <color rgba="0.9921568627450981 0.13529411764705882 0.023529411764705882 1.0"/> 
   </material>
   
   <material name="White">
@@ -53,7 +53,7 @@
   </material>
   
   <material name="Black">
-    <color rgba="0. 0. 0.0 0.0"/>
+    <ambient> 0. 0. 0.0 0.0"</ambient>
   </material>
   
 
@@ -220,7 +220,7 @@
     <joint name="${prefix}_eye_reflect_joint" type="fixed">
       <parent link="base_link"/>
       <child link="${prefix}_eye_reflect"/>
-      <origin xyz="${base_height/2+eye_reflect_length/2} ${-(0.08+0.02)+(y_reflect*(0.08+0.02+0.06))} ${-(wheel_radius+wheel_zoff-base_height/2-0.12)}" rpy="0 0 0"/>
+      <origin xyz="${base_height/2+(eye_reflect_length+eye_length)/2} ${-(0.08+0.02)+(y_reflect*(0.08+0.02+0.06))} ${-(wheel_radius+wheel_zoff-base_height/2-0.12)}" rpy="0 0 0"/>
     </joint>
   </xacro:macro>
   
@@ -308,9 +308,7 @@
         <geometry>
             <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
         </geometry>
-        <material name="Cyan">
-          <color rgba="0.5 0.5 0.5 1.0"/>
-        </material>
+        <material name="White"/>
       </visual>
       
       <collision>
@@ -331,8 +329,8 @@
     </joint>
   </xacro:macro>
 
-  <xacro:wheel prefix="drivewhl_l" x_reflect="-1" y_reflect="1" />
-  <xacro:wheel prefix="drivewhl_r" x_reflect="-1" y_reflect="-1" />
+  <xacro:wheel prefix="left_wheel" x_reflect="-1" y_reflect="1" />
+  <xacro:wheel prefix="right_wheel" x_reflect="-1" y_reflect="-1" />
   
   <!-- Caster Wheel -->
   <link name="front_caster">
@@ -340,9 +338,7 @@
       <geometry>
         <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
       </geometry>
-      <material name="Cyan">
-        <color rgba="0 1.0 1.0 1.0"/>
-      </material>
+      <material name="Orange"/>
     </visual>
     
     <collision>
@@ -355,7 +351,7 @@
     <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
   </link>
 
-  <joint name="caster_joint" type="fixed">
+  <joint name="caster_joint" type="continuous">
     <parent link="base_link"/>
     <child link="front_caster"/>
     <origin xyz="${caster_xoff} 0.0 ${-(base_height/2)}" rpy="0 0 0"/>

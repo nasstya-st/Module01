@@ -7,7 +7,7 @@ class CirclePublisher(Node):
 
     def __init__(self):
         super().__init__('publisher')
-        self.publisher = self.create_publisher(Twist, '/model/fox/cmd_vel', 10)
+        self.publisher = self.create_publisher(Twist, '/fox/cmd_vel', 10)
         timer_period = 0.5  
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
@@ -26,7 +26,7 @@ def main(args=None):
 
     rclpy.spin(circling)
 
-    circling.destroy_node()
+    #circling.destroy_node()
     rclpy.shutdown()
 
 
