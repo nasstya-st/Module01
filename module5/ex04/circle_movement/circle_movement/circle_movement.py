@@ -1,4 +1,4 @@
-import rclpy
+import rclpy, sys
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 

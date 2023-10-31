@@ -127,7 +127,7 @@
         </geometry>
       </collision>
 
-      <xacro:box_inertia m="1" w="${ear_low_width}" d="${ear_low_length}" h="${ear_low_height}"/>
+      <xacro:box_inertia m="0.1" w="${ear_low_width}" d="${ear_low_length}" h="${ear_low_height}"/>
     </link>
 
     <joint name="${prefix}_ear_low_joint" type="fixed">
@@ -156,7 +156,7 @@
         </geometry>
       </collision>
 
-      <xacro:box_inertia m="1" w="${ear_high_width}" d="${ear_high_length}" h="${ear_high_height}"/>
+      <xacro:box_inertia m="0.1" w="${ear_high_width}" d="${ear_high_length}" h="${ear_high_height}"/>
     </link>
 
     <joint name="${prefix}_ear_high_joint" type="fixed">
@@ -186,7 +186,7 @@
         </geometry>
       </collision>
 
-      <xacro:box_inertia m="0.1" w="${eye_width}" d="${eye_length}" h="${eye_height}"/>
+      <xacro:box_inertia m="0.01" w="${eye_width}" d="${eye_length}" h="${eye_height}"/>
     </link>
 
     <joint name="${prefix}_eye_joint" type="fixed">
@@ -214,7 +214,7 @@
         </geometry>
       </collision>
 
-      <xacro:box_inertia m="0.1" w="${eye_reflect_width}" d="${eye_reflect_length}" h="${eye_reflect_height}"/>
+      <xacro:box_inertia m="0.01" w="${eye_reflect_width}" d="${eye_reflect_length}" h="${eye_reflect_height}"/>
     </link>
 
     <joint name="${prefix}_eye_reflect_joint" type="fixed">
@@ -243,7 +243,7 @@
       </geometry>
     </collision>
 
-    <xacro:box_inertia m="0.1" w="${cheek_width}" d="${cheek_length}" h="${cheek_height}"/>
+    <xacro:box_inertia m="0.01" w="${cheek_width}" d="${cheek_length}" h="${cheek_height}"/>
   </link>
 
   <joint name="cheek_big_joint" type="fixed">
@@ -268,7 +268,7 @@
       </geometry>
     </collision>
 
-    <xacro:box_inertia m="0.1" w="${nose_long_width}" d="${nose_long_length}" h="${nose_long_height}"/>
+    <xacro:box_inertia m="0.01" w="${nose_long_width}" d="${nose_long_length}" h="${nose_long_height}"/>
   </link>
 
   <joint name="nose_long_joint" type="fixed">
@@ -291,7 +291,7 @@
       </geometry>
     </collision>
 
-    <xacro:box_inertia m="0.1" w="${nose_width}" d="${nose_length}" h="${nose_height}"/>
+    <xacro:box_inertia m="0.01" w="${nose_width}" d="${nose_length}" h="${nose_height}"/>
   </link>
 
   <joint name="nose_joint" type="fixed">
@@ -332,11 +332,13 @@
   <xacro:wheel prefix="left_wheel" x_reflect="-1" y_reflect="1" />
   <xacro:wheel prefix="right_wheel" x_reflect="-1" y_reflect="-1" />
   
+  <xacro:property name="radius_caster" value="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+  
   <!-- Caster Wheel -->
   <link name="front_caster">
     <visual>
       <geometry>
-        <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+        <sphere radius="${radius_caster}"/>
       </geometry>
       <material name="Orange"/>
     </visual>
@@ -344,11 +346,11 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+        <sphere radius="${radius_caster}"/>
       </geometry>
     </collision>
 
-    <xacro:sphere_inertia m="0.5" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+    <xacro:sphere_inertia m="0.5" r="${radius_caster}"/>
   </link>
 
   <joint name="caster_joint" type="continuous">

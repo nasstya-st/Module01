@@ -46,7 +46,7 @@ def generate_launch_description():
     create = Node(
         package='ros_gz_sim',
         executable='create',
-        arguments=['-name', 'robot', '-x 0.0', '-y 0.0', '-z 0.18',
+        arguments=['-name', 'fox', '-x 0.0', '-y 0.0', '-z 0.18',
                    '-topic', 'robot_description'],
         output='screen'          
     )
