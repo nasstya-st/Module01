@@ -36,7 +36,7 @@ def generate_launch_description():
         	os.path.join(pkg_ros_gz_sim, "launch", "gz_sim.launch.py"),
     	),
     	launch_arguments={
-        	"gz_args": f"-r gpu_lidar_sensor.sdf"
+        	"gz_args": f"-r empty.sdf"
     	}.items(),
 	)
 
@@ -65,7 +65,7 @@ def generate_launch_description():
     rviz = Node(
        package='rviz2',
        executable='rviz2',
-       arguments=['-d', os.path.join(pkg_share, 'config', 'diff_drive.rviz')],
+       arguments=['-d', os.path.join(pkg_share, 'config', 'lidar.rviz')],
        condition=IfCondition(LaunchConfiguration('rviz'))
     )
 

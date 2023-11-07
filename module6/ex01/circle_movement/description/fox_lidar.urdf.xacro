@@ -55,7 +55,6 @@
   
   <material name="Black">
     <ambient> 0. 0. 0.0 0.0"</ambient>
-    <color rgba="0. 0. 0.0 0.0"/>
   </material>
   
 
