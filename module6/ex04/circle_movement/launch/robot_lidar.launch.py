@@ -102,5 +102,5 @@ def generate_launch_description():
         bridge,
         robot_state_publisher,
         rviz,
-        #lidar_avoidance,
+        lidar_avoidance,
     ])
