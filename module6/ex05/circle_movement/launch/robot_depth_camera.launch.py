@@ -98,4 +98,5 @@ def generate_launch_description():
         bridge,
         robot_state_publisher,
         rviz,
+        depth_avoidance
     ])
