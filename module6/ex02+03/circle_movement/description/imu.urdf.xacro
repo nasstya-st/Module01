@@ -33,10 +33,10 @@
     <gazebo reference="imu_link">
         <gravity>true</gravity>
         <sensor name='imu_sensor' type='imu'>
+            <gz_frame_id>fox/imu_link</gz_frame_id>
             <always_on>true</always_on>
             <update_rate>1</update_rate>
             <visualize>true</visualize>
-            <topic>imu</topic>
             <pose>0 0 0 0 0 0</pose>
         </sensor>
     </gazebo>
